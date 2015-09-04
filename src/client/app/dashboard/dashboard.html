@@ -8,26 +8,25 @@
                         <strong>News!</strong>
                         <p>{{news.msg}}</p>
                     </alert>
-                    <table class="table table-condensed table-striped">
-                        <thead>
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Age</th>
-                                <th>Location</th>
-                                <th>Link</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="p in vm.people">
-                                <td>{{p.firstName}}</td>
-                                <td>{{p.lastName}}</td>
-                                <td>{{p.age}}</td>
-                                <td>{{p.location}}</td>
-                                <td><a ng-href="/view/person/{{p.id}}" class="btn btn-small btn-primary">view</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Today's weather</h4>
+                        </div>
+                        <div class="panel-body">
+                            <h4>{{vm.weatherStat.title}}</h4>
+                            <strong>{{vm.weatherStat.wind.chill}} {{vm.weatherStat.units.temperature}}</strong>
+                            <p>
+                                <div class="forecast col-md-2" ng-repeat="fc in vm.weatherStat.item.forecast">
+                                    <strong class="label label-primary">{{fc.day}}</strong> {{fc.date}} 
+                                    <div class="status">{{fc.text}}</div>
+                                    <div class="forecast-low-high">
+                                        <span class="low">{{fc.low}} {{vm.weatherStat.units.temperature}}</span>/
+                                        <span class="high">{{fc.high}} {{vm.weatherStat.units.temperature}}</span>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

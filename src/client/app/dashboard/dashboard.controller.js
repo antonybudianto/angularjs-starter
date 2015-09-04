@@ -5,30 +5,24 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$q', 'dataservice', 'logger'];
+    //DashboardController.$inject = ['$q', 'dataservice', 'logger'];
     /* @ngInject */
     function DashboardController($q, dataservice, logger) {
         var vm = this;
         vm.news = [
-            {
-                type: 'danger',
-                msg: 'Contoh penggunaan alert ui-bootstrap angularjs'
-            },
             {
                 type: 'success',
                 msg: 'Well done! You successfully read this important alert message.'
             }
         ];
         vm.closeAlert = closeAlert;
-        vm.messageCount = 0;
-        vm.people = [];
         vm.title = 'Dashboard';
 
         activate();
 
         function activate() {
-            var promises = [getMessageCount(), getPeople()];
-            return $q.all(promises).then(function() {
+            var promises = [getWeatherStat()];
+            return $q.all(promises).then(function(data) {
                 logger.info('Activated Dashboard View');
             });
         }
@@ -37,17 +31,10 @@
             vm.news.splice(index, 1);
         }
 
-        function getMessageCount() {
-            return dataservice.getMessageCount().then(function (data) {
-                vm.messageCount = data;
-                return vm.messageCount;
-            });
-        }
-
-        function getPeople() {
-            return dataservice.getPeople().then(function (data) {
-                vm.people = data;
-                return vm.people;
+        function getWeatherStat() {
+            return dataservice.getWeatherStat().then(function (data) {
+                vm.weatherStat = data.query.results.channel;
+                return vm.weatherStat;
             });
         }
     }

@@ -5,15 +5,15 @@
                 <div class="col-md-5 col-md-offset-4">
                     <form ng-submit="vm.submitLogin()" class="form-horizontal" role="form">
                         <div class="form-group" ng-class="{'has-success':vm.username}">
-                            <label for="username">Username</label>
+                            <label class="control-label" for="username">Username</label>
                             <input ng-model="vm.username" id="username" type="text" name="username" placeholder="Input your username..." class="form-control">
                         </div>
                         <div class="form-group" ng-class="{'has-success':vm.password}">
-                            <label for="password">Password</label>
+                            <label class="control-label" for="password">Password</label>
                             <input ng-model="vm.password" id="password" type="password" name="password" placeholder="Input your password..." class="form-control">
                         </div>
                         <div class="form-group">
-                            <button ng-disabled="!vm.submitReady()" type="submit" class="btn btn-primary form-control"><i class="fa fa-sign-in"></i> Login</button>
+                            <button ng-disabled="!vm.submitReady()" type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i> Login</button>
                         </div>
                     </form>
                 </div>
