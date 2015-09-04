@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
-var four0four = require('./utils/404')();
+var errorResponse = require('./utils/error-response')();
 
 var environment = process.env.NODE_ENV;
 
@@ -28,7 +28,7 @@ switch (environment){
         app.use(express.static('./build/'));
         // Any invalid calls for templateUrls are under app/* and should return 404
         app.use('/app/*', function(req, res, next) {
-            four0four.send404(req, res);
+            errorResponse.send404(req, res);
         });
         // Any deep link calls should return index.html
         app.use('/*', express.static('./build/index.html'));
@@ -40,7 +40,7 @@ switch (environment){
         app.use(express.static('./tmp'));
         // Any invalid calls for templateUrls are under app/* and should return 404
         app.use('/app/*', function(req, res, next) {
-            four0four.send404(req, res);
+            errorResponse.send404(req, res);
         });
         // Any deep link calls should return index.html
         app.use('/*', express.static('./src/client/index.html'));
