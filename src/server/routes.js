@@ -1,10 +1,10 @@
 var router = require('express').Router();
-var four0four = require('./utils/404')();
+var errorResponse = require('./utils/error-response')();
 var data = require('./data');
 
 router.get('/people', getPeople);
 router.get('/person/:id', getPerson);
-router.get('/*', four0four.notFoundMiddleware);
+router.get('/*', errorResponse.notFoundMiddleware);
 
 router.post('/user/auth', postUserAuth);
 
@@ -25,15 +25,15 @@ function getPerson(req, res, next) {
     if (person) {
         res.status(200).send(person);
     } else {
-        four0four.send404(req, res, 'person ' + id + ' not found');
+        errorResponse.send404(req, res, 'person ' + id + ' not found');
     }
 }
 
 function postUserAuth(req, res, next) {
     if (req.body.username === '') {
-        four0four.send404(req, res, 'Username is blank');
+        errorResponse.send404(req, res, 'Username is blank');
     } else if (req.body.password === '') {
-        four0four.send404(req, res, 'Password is blank');
+        errorResponse.send404(req, res, 'Password is blank');
     } else {
         var user = data.user.filter(function(p) {
             return p.username === req.body.username && p.password === req.body.password;
@@ -42,7 +42,7 @@ function postUserAuth(req, res, next) {
         if (user) {
             res.status(200).send(user);
         } else {
-            four0four.send404(req, res, 'Wrong credentials.');
+            errorResponse.send400(req, res, 'Wrong credentials.');
         }
     }
 }
