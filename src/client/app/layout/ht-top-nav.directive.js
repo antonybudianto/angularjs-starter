@@ -24,6 +24,7 @@
             vm.appName = APP_NAME;
             vm.isAuth = isAuth;
             vm.logout = logout;
+            vm.isCurrent = isCurrent;
         }
 
         function isAuth () {
@@ -35,11 +36,7 @@
         }
 
         function isCurrent(route) {
-            if (!route.title || !$state.current || !$state.current.title) {
-                return '';
-            }
-            var menuName = route.title;
-            return $state.current.title.substr(0, menuName.length) === menuName ? 'current' : '';
+            return route === $state.current.url ? 'active' : '';
         }
 
         return directive;
