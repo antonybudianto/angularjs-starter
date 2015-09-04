@@ -1,0 +1,23 @@
+<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                    <form ng-submit="vm.submitLogin()" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input ng-model="vm.username" id="username" type="text" name="username" placeholder="Input your username..." class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input ng-model="vm.password" id="password" type="password" name="password" placeholder="Input your password..." class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button ng-disabled="!vm.submitReady()" type="submit" class="btn btn-primary form-control"><i class="fa fa-sign-in"></i> Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
