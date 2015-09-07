@@ -4,7 +4,7 @@ describe('ShellController', function() {
 
     beforeEach(function() {
         bard.appModule('app.layout');
-        bard.inject('$controller', '$q', '$rootScope', '$timeout', 'dataservice');
+        bard.inject('$controller', '$q', '$rootScope', '$timeout');
     });
 
     beforeEach(function () {
@@ -19,16 +19,16 @@ describe('ShellController', function() {
             expect(controller).to.be.defined;
         });
 
-        it('should show splash screen', function () {
-            expect($rootScope.showSplash).to.be.true;
-        });
+        // it('should show splash screen', function () {
+        //     expect($rootScope.showSplash).to.be.true;
+        // });
 
-        it('should hide splash screen after timeout', function (done) {
-            $timeout(function() {
-                expect($rootScope.showSplash).to.be.false;
-                done();
-            }, 1000);
-            $timeout.flush();
-        });
+        // it('should hide splash screen after timeout', function (done) {
+        //     $timeout(function() {
+        //         expect($rootScope.showSplash).to.be.false;
+        //         done();
+        //     }, 1000);
+        //     $timeout.flush();
+        // });
     });
 });

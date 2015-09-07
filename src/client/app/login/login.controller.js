@@ -5,9 +5,8 @@
         .module('app.login')
         .controller('LoginController', LoginController);
 
-    //LoginController.$inject = ['logger', '$window'];
     /* @ngInject */
-    function LoginController($window, dataservice, $location, AuthService) {
+    function LoginController($location, logger, AuthService) {
         var vm = this;
         vm.title = 'Login';
         vm.username = '';
@@ -19,24 +18,19 @@
 
         function submitLogin () {
             // call POST to authenticate
-            console.log('authenticating');
-            dataservice.authenticate(vm.username, vm.password).then(checkAuthResult);
+            AuthService.authenticate(vm.username, vm.password).then(authPromise);
+
+            function authPromise (data) {
+                if (data !== undefined) {
+                    // Redirects to dashboard
+                    logger.info('Success Login!');
+                    $location.path('/');
+                }
+            }
         }
 
         function submitReady () {
             return vm.username !== '' && vm.password !== '';
-        }
-
-        function checkAuthResult (data) {
-            if (data !== undefined) {
-                // Setting localstorage
-                $window.localStorage.setItem('user', JSON.stringify({
-                    'id': data.id
-                }));
-
-                // Redirects to dashboard
-                $location.path('/');
-            }
         }
 
         function activate() {

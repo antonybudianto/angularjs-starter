@@ -5,9 +5,8 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    //DashboardController.$inject = ['$q', 'dataservice', 'logger'];
     /* @ngInject */
-    function DashboardController($q, dataservice, logger) {
+    function DashboardController($q, logger, WeatherService) {
         var vm = this;
         vm.news = [
             {
@@ -21,21 +20,25 @@
         activate();
 
         function activate() {
-            var promises = [getWeatherStat()];
-            return $q.all(promises).then(function(data) {
+            var promises = [getWeather()];
+            return $q.all(promises).then(promiseDone);
+
+            function promiseDone (data) {
                 logger.info('Activated Dashboard View');
-            });
+            }
         }
 
         function closeAlert (index) {
             vm.news.splice(index, 1);
         }
 
-        function getWeatherStat() {
-            return dataservice.getWeatherStat().then(function (data) {
+        function getWeather () {
+            return WeatherService.getWeather().then(getWeatherDone);
+
+            function getWeatherDone (data) {
                 vm.weatherStat = data.query.results.channel;
                 return vm.weatherStat;
-            });
+            }
         }
     }
 })();

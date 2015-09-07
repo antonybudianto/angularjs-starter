@@ -6,7 +6,8 @@
         'app.login',
         'app.admin',
         'app.dashboard',
-        'app.layout'
+        'app.layout',
+        'app.widget'
     ]);
 
 })();

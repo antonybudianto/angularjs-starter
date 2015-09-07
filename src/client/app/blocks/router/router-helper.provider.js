@@ -24,7 +24,7 @@
         this.$get = RouterHelper;
         //RouterHelper.$inject = ['$location', '$rootScope', '$state', 'logger'];
         /* @ngInject */
-        function RouterHelper($window, $location, $rootScope, $state, logger) {
+        function RouterHelper($window, $location, $rootScope, $state, logger, APP_AUTH_ROUTES) {
             var handlingStateChangeError = false;
             var hasOtherwise = false;
             var stateCounts = {
@@ -88,10 +88,8 @@
             function getStates() { return $state.get(); }
 
             function handleAuthRoutes () {
-                var authRoutes = ['/', '/admin'];
-
                 $rootScope.$on('$stateChangeStart', function(event, to, from) {
-                    authRoutes.forEach(function (route) {
+                    APP_AUTH_ROUTES.forEach(function (route) {
                         if (route === to.url) {
                             if ($window.localStorage.getItem('user') === null) {
                                 event.preventDefault();
