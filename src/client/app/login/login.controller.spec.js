@@ -4,10 +4,14 @@ describe('LoginController', function() {
 
     beforeEach(function() {
         bard.appModule('app.login');
-        bard.inject('$controller', '$log', '$rootScope');
+        bard.inject('$controller', '$log', '$rootScope', '$httpBackend');
     });
 
     beforeEach(function () {
+        $httpBackend.whenPOST('/api/user/auth', {username: '', password: 'a'})
+            .respond(400, 'Username is blank');
+        $httpBackend.whenPOST('/api/user/auth', {username: 'a', password: ''})
+            .respond(400, 'Password is blank');
         controller = $controller('LoginController');
         $rootScope.$apply();
     });
@@ -43,7 +47,23 @@ describe('LoginController', function() {
         });
 
         describe('after submit ready', function () {
+            it('should fail login when username is blank', function () {
+                controller.username = '';
+                controller.password = 'a';
+                controller.submitLogin();
+                $httpBackend.expectPOST('/api/user/auth', {username: '', password: 'a'})
+                    .respond(401, 'Usernaame is blank');
+                $httpBackend.flush();
+            });
 
+            it('should fail login when password is blank', function () {
+                controller.username = 'a';
+                controller.password = '';
+                controller.submitLogin();
+                $httpBackend.expectPOST('/api/user/auth', {username: 'a', password: ''})
+                    .respond(400, 'Password is blank');
+                $httpBackend.flush();
+            });
         });
 
         // describe('after activate', function() {

@@ -31,9 +31,9 @@ function getPerson(req, res, next) {
 
 function postUserAuth(req, res, next) {
     if (req.body.username === '') {
-        errorResponse.send404(req, res, 'Username is blank');
+        errorResponse.send400(req, res, 'Username is blank');
     } else if (req.body.password === '') {
-        errorResponse.send404(req, res, 'Password is blank');
+        errorResponse.send400(req, res, 'Password is blank');
     } else {
         var user = data.user.filter(function(p) {
             return p.username === req.body.username && p.password === req.body.password;
