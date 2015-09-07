@@ -17,16 +17,16 @@
 
         function authenticate(username, password) {
             return $http.post('/api/user/auth', {username: username, password: password})
-                .then(success)
-                .catch(fail);
+                .then(success, fail);
 
             function success(response) {
                 setAuth(response.data.id);
-                return response.data;
+                return response;
             }
 
             function fail(e) {
-                return exception.catcher('Fail authenticating: ')(e);
+                return e;
+                //return exception.catcher('Fail authenticating: ')(e);
             }
         }
 

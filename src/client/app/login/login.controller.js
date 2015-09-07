@@ -20,11 +20,16 @@
             // call POST to authenticate
             AuthService.authenticate(vm.username, vm.password).then(authPromise);
 
-            function authPromise (data) {
-                if (data !== undefined) {
+            function authPromise (response) {
+                vm.status = response.status;
+                if (response.status === 200) {
                     // Redirects to dashboard
+                    vm.status = response.status;
+                    console.log(vm.status);
                     logger.info('Success Login!');
                     $location.path('/');
+                } else {
+                    logger.error('Login fail! Please try again');
                 }
             }
         }

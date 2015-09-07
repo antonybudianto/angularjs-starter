@@ -51,18 +51,18 @@ describe('LoginController', function() {
                 controller.username = '';
                 controller.password = 'a';
                 controller.submitLogin();
-                $httpBackend.expectPOST('/api/user/auth', {username: '', password: 'a'})
-                    .respond(401, 'Usernaame is blank');
+                $httpBackend.expectPOST('/api/user/auth', {username: '', password: 'a'});
                 $httpBackend.flush();
+                expect(controller.status === 400).to.equal(true);
             });
 
             it('should fail login when password is blank', function () {
                 controller.username = 'a';
                 controller.password = '';
                 controller.submitLogin();
-                $httpBackend.expectPOST('/api/user/auth', {username: 'a', password: ''})
-                    .respond(400, 'Password is blank');
+                $httpBackend.expectPOST('/api/user/auth', {username: 'a', password: ''});
                 $httpBackend.flush();
+                expect(controller.status === 400).to.equal(true);
             });
         });
 
