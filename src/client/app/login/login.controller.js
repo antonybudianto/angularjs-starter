@@ -11,6 +11,7 @@
         vm.title = 'Login';
         vm.username = '';
         vm.password = '';
+        vm.login = {};
         vm.submitLogin = submitLogin;
         vm.submitReady = submitReady;
 
@@ -21,15 +22,14 @@
             AuthService.authenticate(vm.username, vm.password).then(authPromise);
 
             function authPromise (response) {
-                vm.status = response.status;
+                vm.login.status = response.status;
+                vm.login.description = response.data.description;
                 if (response.status === 200) {
                     // Redirects to dashboard
-                    vm.status = response.status;
-                    console.log(vm.status);
                     logger.info('Success Login!');
                     $location.path('/');
                 } else {
-                    logger.error('Login fail! Please try again');
+                    logger.error(vm.login.description);
                 }
             }
         }

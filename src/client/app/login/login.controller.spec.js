@@ -1,6 +1,8 @@
 /* jshint -W117, -W030 */
 describe('LoginController', function() {
-    var controller;
+    var controller, authHandler;
+    var bypassUsername = 'dummyUsername';
+    var bypassPassword = 'supersecret';
 
     beforeEach(function() {
         bard.appModule('app.login');
@@ -8,10 +10,20 @@ describe('LoginController', function() {
     });
 
     beforeEach(function () {
-        $httpBackend.whenPOST('/api/user/auth', {username: '', password: 'a'})
-            .respond(400, 'Username is blank');
-        $httpBackend.whenPOST('/api/user/auth', {username: 'a', password: ''})
-            .respond(400, 'Password is blank');
+        authHandler = $httpBackend.whenPOST('/api/user/auth')
+            .respond(function(method, url, data, header) {
+                data = JSON.parse(data);
+                if (data.username === '') {
+                    return [400, {description: 'Username is blank'}];
+                } else if (data.password === '') {
+                    return [400, {description: 'Password is blank'}];
+                } else if (data.username === bypassUsername &&
+                    data.password === bypassPassword) {
+                    return [200, {description: 'Login success'}];
+                } else {
+                    return [400, {description: 'Wrong credentials'}];
+                }
+            });
         controller = $controller('LoginController');
         $rootScope.$apply();
     });
@@ -46,23 +58,42 @@ describe('LoginController', function() {
             expect(controller.submitReady()).to.equal(true);
         });
 
-        describe('after submit ready', function () {
+        describe('after submit ready and do submit: it', function () {
             it('should fail login when username is blank', function () {
                 controller.username = '';
                 controller.password = 'a';
                 controller.submitLogin();
-                $httpBackend.expectPOST('/api/user/auth', {username: '', password: 'a'});
+                $httpBackend.expectPOST('/api/user/auth');
                 $httpBackend.flush();
-                expect(controller.status === 400).to.equal(true);
+                expect(controller.login.status === 400 &&
+                    controller.login.description === 'Username is blank').to.equal(true);
             });
 
             it('should fail login when password is blank', function () {
                 controller.username = 'a';
                 controller.password = '';
                 controller.submitLogin();
-                $httpBackend.expectPOST('/api/user/auth', {username: 'a', password: ''});
                 $httpBackend.flush();
-                expect(controller.status === 400).to.equal(true);
+                expect(controller.login.status === 400 &&
+                    controller.login.description === 'Password is blank').to.equal(true);
+            });
+
+            it('should fail login when credentials are wrong', function () {
+                controller.username = 'a';
+                controller.password = 'b';
+                controller.submitLogin();
+                $httpBackend.flush();
+                expect(controller.login.status === 400 &&
+                    controller.login.description === 'Wrong credentials').to.equal(true);
+            });
+
+            it('should succeeded login when credentials are right', function () {
+                controller.username = bypassUsername;
+                controller.password = bypassPassword;
+                controller.submitLogin();
+                $httpBackend.flush();
+                expect(controller.login.status === 200 &&
+                    controller.login.description === 'Login success').to.equal(true);
             });
         });
 
