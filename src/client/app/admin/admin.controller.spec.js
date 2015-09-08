@@ -16,16 +16,16 @@ describe('AdminController', function() {
 
     describe('Admin controller', function() {
         it('should be created successfully', function () {
-            expect(controller).to.be.defined;
+            expect(controller).toBeDefined();
         });
 
         describe('after activate', function() {
             it('should have title of Admin', function() {
-                expect(controller.title).to.equal('Admin');
+                expect(controller.title).toEqual('Admin');
             });
 
             it('should have logged "Activated"', function() {
-                expect($log.info.logs).to.match(/Activated/);
+                expect($log.info.logs).toMatch(/Activated/);
             });
         });
     });

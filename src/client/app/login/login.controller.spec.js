@@ -1,6 +1,9 @@
 /* jshint -W117, -W030 */
 describe('LoginController', function() {
     var controller, authHandler;
+
+    // Fake rights credentials
+    var bypassId = '123';
     var bypassUsername = 'dummyUsername';
     var bypassPassword = 'supersecret';
 
@@ -10,6 +13,7 @@ describe('LoginController', function() {
     });
 
     beforeEach(function () {
+        // Fake back-end definition to test login
         authHandler = $httpBackend.whenPOST('/api/user/auth')
             .respond(function(method, url, data, header) {
                 data = JSON.parse(data);
@@ -19,7 +23,7 @@ describe('LoginController', function() {
                     return [400, {description: 'Password is blank'}];
                 } else if (data.username === bypassUsername &&
                     data.password === bypassPassword) {
-                    return [200, {description: 'Login success'}];
+                    return [200, {description: 'Login success', user: {id: bypassId}}];
                 } else {
                     return [400, {description: 'Wrong credentials'}];
                 }
@@ -32,30 +36,30 @@ describe('LoginController', function() {
 
     describe('Login controller', function() {
         it('should be created successfully', function () {
-            expect(controller).to.be.defined;
+            expect(controller).toBeDefined();
         });
 
         it('should have a blank username and password', function () {
-            expect(controller.username).to.equal('');
-            expect(controller.password).to.equal('');
+            expect(controller.username).toEqual('');
+            expect(controller.password).toEqual('');
         });
 
         it('should not ready to submit login when username/password is blank', function () {
             controller.username = '';
             controller.password = 'a';
-            expect(controller.submitReady()).to.equal(false);
+            expect(controller.submitReady()).toEqual(false);
             controller.username = 'a';
             controller.password = '';
-            expect(controller.submitReady()).to.equal(false);
+            expect(controller.submitReady()).toEqual(false);
             controller.username = '';
             controller.password = '';
-            expect(controller.submitReady()).to.equal(false);
+            expect(controller.submitReady()).toEqual(false);
         });
 
         it('should be ready to submit login when inputs aren\'t blank', function () {
             controller.username = 'something';
             controller.password = 'anything';
-            expect(controller.submitReady()).to.equal(true);
+            expect(controller.submitReady()).toEqual(true);
         });
 
         describe('after submit ready and do submit: it', function () {
@@ -63,10 +67,9 @@ describe('LoginController', function() {
                 controller.username = '';
                 controller.password = 'a';
                 controller.submitLogin();
-                $httpBackend.expectPOST('/api/user/auth');
                 $httpBackend.flush();
                 expect(controller.login.status === 400 &&
-                    controller.login.description === 'Username is blank').to.equal(true);
+                    controller.login.description === 'Username is blank').toEqual(true);
             });
 
             it('should fail login when password is blank', function () {
@@ -75,7 +78,7 @@ describe('LoginController', function() {
                 controller.submitLogin();
                 $httpBackend.flush();
                 expect(controller.login.status === 400 &&
-                    controller.login.description === 'Password is blank').to.equal(true);
+                    controller.login.description === 'Password is blank').toEqual(true);
             });
 
             it('should fail login when credentials are wrong', function () {
@@ -84,7 +87,7 @@ describe('LoginController', function() {
                 controller.submitLogin();
                 $httpBackend.flush();
                 expect(controller.login.status === 400 &&
-                    controller.login.description === 'Wrong credentials').to.equal(true);
+                    controller.login.description === 'Wrong credentials').toEqual(true);
             });
 
             it('should succeeded login when credentials are right', function () {
@@ -93,13 +96,13 @@ describe('LoginController', function() {
                 controller.submitLogin();
                 $httpBackend.flush();
                 expect(controller.login.status === 200 &&
-                    controller.login.description === 'Login success').to.equal(true);
+                    controller.login.description === 'Login success').toEqual(true);
             });
         });
 
         // describe('after activate', function() {
         //     it('should have title of Admin', function() {
-        //         expect(controller.title).to.equal('Admin');
+        //         expect(controller.title).toEqual('Admin');
         //     });
 
         //     it('should have logged "Activated"', function() {

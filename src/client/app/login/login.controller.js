@@ -26,7 +26,7 @@
                 vm.login.description = response.data.description;
                 if (response.status === 200) {
                     // Redirects to dashboard
-                    logger.info('Success Login!');
+                    logger.info(vm.login.description);
                     $location.path('/');
                 } else {
                     logger.error(vm.login.description);

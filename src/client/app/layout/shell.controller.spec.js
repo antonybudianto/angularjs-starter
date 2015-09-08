@@ -16,7 +16,7 @@ describe('ShellController', function() {
 
     describe('Shell controller', function() {
         it('should be created successfully', function () {
-            expect(controller).to.be.defined;
+            expect(controller).toBeDefined();
         });
 
         // it('should show splash screen', function () {

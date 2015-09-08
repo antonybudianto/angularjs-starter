@@ -20,13 +20,12 @@
                 .then(success, fail);
 
             function success(response) {
-                setAuth(response.data.id);
+                setAuth(response.data.user.id);
                 return response;
             }
 
             function fail(e) {
                 return e;
-                //return exception.catcher('Fail authenticating: ')(e);
             }
         }
 

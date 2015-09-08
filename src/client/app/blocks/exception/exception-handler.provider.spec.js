@@ -17,19 +17,19 @@ describe('blocks.exception', function() {
 
     describe('exceptionHandlerProvider', function() {
         it('should have a dummy test', inject(function() {
-            expect(true).to.equal(true);
+            expect(true).toEqual(true);
         }));
 
         it('should have exceptionHandlerProvider defined', inject(function() {
-            expect(exceptionHandlerProvider).to.be.defined;
+            expect(exceptionHandlerProvider).toBeDefined();
         }));
 
         it('should have configuration', inject(function() {
-            expect(exceptionHandlerProvider.config).to.be.defined;
+            expect(exceptionHandlerProvider.config).toBeDefined();
         }));
 
         it('should have configuration', inject(function() {
-            expect(exceptionHandlerProvider.configure).to.be.defined;
+            expect(exceptionHandlerProvider.configure).toBeDefined();
         }));
 
         describe('with appErrorPrefix', function() {
@@ -38,16 +38,16 @@ describe('blocks.exception', function() {
             });
 
             it('should have appErrorPrefix defined', inject(function() {
-                expect(exceptionHandlerProvider.$get().config.appErrorPrefix).to.be.defined;
+                expect(exceptionHandlerProvider.$get().config.appErrorPrefix).toBeDefined();
             }));
 
             it('should have appErrorPrefix set properly', inject(function() {
                 expect(exceptionHandlerProvider.$get().config.appErrorPrefix)
-                    .to.equal(mocks.prefix);
+                    .toEqual(mocks.prefix);
             }));
 
             it('should throw an error when forced', inject(function() {
-                expect(functionThatWillThrow).to.throw();
+                expect(functionThatWillThrow).toThrow();
             }));
 
             it('manual error is handled by decorator', function() {
@@ -58,7 +58,7 @@ describe('blocks.exception', function() {
                 }
                 catch (ex) {
                     exception = ex;
-                    expect(ex.message).to.equal(mocks.prefix + mocks.errorMessage);
+                    expect(ex.message).toEqual(mocks.prefix + mocks.errorMessage);
                 }
             });
         });

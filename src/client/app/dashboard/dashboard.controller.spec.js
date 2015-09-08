@@ -19,15 +19,15 @@ describe('DashboardController', function() {
 
     describe('Dashboard controller', function() {
         it('should be created', function() {
-            expect(controller).is.to.be.defined;
+            expect(controller).toBeDefined();
         });
         describe('after activate', function() {
             it('should have weatherStat defined', function () {
-                expect(controller.weatherStat).is.to.be.defined;
+                expect(controller.weatherStat).toBeDefined();
             });
             describe('after weatherStat defined', function () {
                 it('should have at least 5 forecasts', function () {
-                    expect(controller.weatherStat.item.forecast.length >= 5).to.equal(true);
+                    expect(controller.weatherStat.item.forecast.length >= 5).toEqual(true);
                 });
             });
 

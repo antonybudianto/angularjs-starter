@@ -40,7 +40,11 @@ function postUserAuth(req, res, next) {
         })[0];
 
         if (user) {
-            res.status(200).send(user);
+            res.status(200).send({
+                status: 200,
+                user: user,
+                description: 'Login success'
+            });
         } else {
             errorResponse.send400(req, res, 'Wrong credentials.');
         }

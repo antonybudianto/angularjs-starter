@@ -7,7 +7,7 @@ module.exports = function(config) {
 
         // frameworks to use
         // some available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'chai', 'sinon', 'chai-sinon'],
+        frameworks: ['jasmine'],
 
         // list of files / patterns to load in the browser
         files: gulpConfig.karma.files,
