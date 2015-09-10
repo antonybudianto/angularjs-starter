@@ -7,7 +7,7 @@ describe('ShellController', function() {
         bard.inject('$controller', '$q', '$rootScope', '$timeout');
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         controller = $controller('ShellController');
         $rootScope.$apply();
     });

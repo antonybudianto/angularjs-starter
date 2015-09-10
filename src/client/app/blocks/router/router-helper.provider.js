@@ -6,7 +6,7 @@
         .module('blocks.router')
         .provider('routerHelper', routerHelperProvider);
 
-    routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+    //routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
     /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
         /* jshint validthis:true */
@@ -35,7 +35,8 @@
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
-                stateCounts: stateCounts
+                stateCounts: stateCounts,
+                handleStateChangeError: handleStateChangeError
             };
 
             init();
@@ -60,23 +61,24 @@
                 // Route cancellation:
                 // On routing error, go to the dashboard.
                 // Provide an exit clause if it tries to do it twice.
-                $rootScope.$on('$stateChangeError',
-                    function(event, toState, toParams, fromState, fromParams, error) {
-                        if (handlingStateChangeError) {
-                            return;
-                        }
-                        stateCounts.errors++;
-                        handlingStateChangeError = true;
-                        var destination = (toState &&
-                            (toState.title || toState.name || toState.loadedTemplateUrl)) ||
-                            'unknown target';
-                        var msg = 'Error routing to ' + destination + '. ' +
-                            (error.data || '') + '. <br/>' + (error.statusText || '') +
-                            ': ' + (error.status || '');
-                        logger.warning(msg, [toState]);
-                        $location.path('/');
-                    }
-                );
+                $rootScope.$on('$stateChangeError', handleStateChangeError);
+            }
+
+            function handleStateChangeError(event, toState, toParams,
+                fromState, fromParams, error) {
+                if (handlingStateChangeError) {
+                    return;
+                }
+                stateCounts.errors++;
+                handlingStateChangeError = true;
+                var destination = (toState &&
+                    (toState.title || toState.name || toState.loadedTemplateUrl)) ||
+                    'unknown target';
+                var msg = 'Error routing to ' + destination + '. ' +
+                    (error.data || '') + '. <br/>' + (error.statusText || '') +
+                    ': ' + (error.status || '');
+                logger.error(msg, [toState]);
+                $location.path('/');
             }
 
             function init() {

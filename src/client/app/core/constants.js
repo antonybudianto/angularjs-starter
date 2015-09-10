@@ -5,6 +5,7 @@
     angular
         .module('app.core')
         .constant('APP_NAME', 'ToDoList')
+        .constant('APP_AUTH_KEY', 'user')
         .constant('APP_AUTH_ROUTES', [
             '/',
             '/admin'

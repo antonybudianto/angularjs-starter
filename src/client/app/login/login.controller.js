@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($location, logger, AuthService) {
+    function LoginController($location, logger, AuthService, $state) {
         var vm = this;
         vm.title = 'Login';
         vm.username = '';
@@ -27,7 +27,7 @@
                 if (response.status === 200) {
                     // Redirects to dashboard
                     logger.info(vm.login.description);
-                    $location.path('/');
+                    $state.go('dashboard');
                 } else {
                     logger.error(vm.login.description);
                 }

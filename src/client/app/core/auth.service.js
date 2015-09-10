@@ -8,8 +8,7 @@
     //AuthService.$inject = [];
 
     /* @ngInject */
-    function AuthService($http, $window, $state, exception) {
-        var key = 'user';
+    function AuthService($http, $window, $state, exception, APP_AUTH_KEY) {
         var vm = this;
         vm.isAuth = isAuth;
         vm.logout = logout;
@@ -25,22 +24,23 @@
             }
 
             function fail(e) {
+                exception.catcher('Login failed')(e);
                 return e;
             }
         }
 
         function isAuth () {
-            return $window.localStorage.getItem(key) !== null;
+            return $window.localStorage.getItem(APP_AUTH_KEY) !== null;
         }
 
         function setAuth (id) {
-            $window.localStorage.setItem(key, JSON.stringify({
+            $window.localStorage.setItem(APP_AUTH_KEY, JSON.stringify({
                 'id': id
             }));
         }
 
         function logout () {
-            $window.localStorage.removeItem(key);
+            $window.localStorage.removeItem(APP_AUTH_KEY);
             $state.go('login');
         }
     }

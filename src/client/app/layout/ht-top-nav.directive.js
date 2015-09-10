@@ -36,7 +36,7 @@
         }
 
         function isCurrent(route) {
-            return route === $state.current.url ? 'active' : '';
+            return $state.is(route) ? 'active' : '';
         }
 
         return directive;

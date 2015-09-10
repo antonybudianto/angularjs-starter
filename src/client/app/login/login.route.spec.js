@@ -5,7 +5,7 @@ describe('admin routes', function () {
 
         beforeEach(function() {
             module('app.login', bard.fakeToastr);
-            bard.inject('$httpBackend', '$location', '$rootScope', '$state', '$templateCache');
+            bard.inject('$location', '$rootScope', '$state', '$templateCache');
         });
 
         beforeEach(function() {

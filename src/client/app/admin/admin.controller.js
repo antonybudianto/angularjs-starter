@@ -5,9 +5,9 @@
         .module('app.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['logger'];
+    //AdminController.$inject = ['logger'];
     /* @ngInject */
-    function AdminController(logger) {
+    function AdminController(logger, $state) {
         var vm = this;
         vm.title = 'Admin';
 
