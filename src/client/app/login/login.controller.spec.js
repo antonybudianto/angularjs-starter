@@ -73,7 +73,7 @@ describe('LoginController', function() {
                 controller.submitLogin();
                 $httpBackend.flush();
                 expect(controller.login.status === 400).toBeTruthy();
-                expect(controller.login.description).toEqual('Login failed\nUsername is blank');
+                expect(controller.login.description).toEqual('Username is blank');
             });
 
             it('should fail login when password is blank', function () {
@@ -90,7 +90,7 @@ describe('LoginController', function() {
                 controller.submitLogin();
                 $httpBackend.flush();
                 expect(controller.login.status === 400).toBeTruthy();
-                expect(controller.login.description).toEqual('Login failed\nWrong credentials');
+                expect(controller.login.description).toEqual('Wrong credentials');
             });
 
             it('should succeeded login when credentials are right', function () {

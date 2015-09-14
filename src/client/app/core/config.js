@@ -5,7 +5,6 @@
 
     core.config(toastrConfig);
 
-    //toastrConfig.$inject = ['toastr'];
     /* @ngInject */
     function toastrConfig(toastr) {
         toastr.options.timeOut = 4000;
@@ -13,7 +12,6 @@
     }
 
     var config = {
-        appErrorPrefix: '[todolistapp Error] ',
         appTitle: 'ToDoList'
     };
 
@@ -21,13 +19,11 @@
 
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
     /* @ngInject */
-    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+    function configure($logProvider, routerHelperProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
-        exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
     }
 

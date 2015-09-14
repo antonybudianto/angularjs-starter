@@ -6,7 +6,7 @@
         .factory('weatherService', weatherService);
 
     /* @ngInject */
-    function weatherService($http, exception, YWEATHER_URL) {
+    function weatherService($http, YWEATHER_URL) {
         var service = {
             getWeather: getWeather
         };
@@ -23,7 +23,7 @@
             }
 
             function fail(e) {
-                return exception.catcher('XHR Failed for getWeather')(e);
+                return e;
             }
         }
     }

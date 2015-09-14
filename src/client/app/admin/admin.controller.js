@@ -13,18 +13,24 @@
         activate();
 
         function activate() {
-            var peoplePromise = peopleService.query(function(people) {
-                vm.people = people;
-            }).$promise;
-            var itemPromise = itemService.query(function(items) {
-                vm.items = items;
-            }).$promise;
-            var promises = [peoplePromise, itemPromise];
+            var promises = [getPeople(), getItems()];
             return $q.all(promises).then(promiseDone);
 
-            function promiseDone(data) {
+            function promiseDone() {
                 logger.info('Activated Admin View');
             }
+        }
+
+        function getPeople() {
+            return peopleService.query(function(people) {
+                vm.people = people;
+            });
+        }
+
+        function getItems() {
+            return itemService.query(function(items) {
+                vm.items = items;
+            });
         }
     }
 })();

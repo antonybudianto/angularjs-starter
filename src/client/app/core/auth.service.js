@@ -8,7 +8,7 @@
     //authService.$inject = [];
 
     /* @ngInject */
-    function authService($http, $window, $state, exception, APP_AUTH_KEY) {
+    function authService($http, $window, $state, APP_AUTH_KEY) {
         var service = {
             isAuth: isAuth,
             logout: logout,
@@ -27,7 +27,6 @@
             }
 
             function fail(e) {
-                exception.catcher('Login failed')(e);
                 return e;
             }
         }
