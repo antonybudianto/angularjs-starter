@@ -5,16 +5,26 @@
         .module('app.admin')
         .controller('AdminController', AdminController);
 
-    //AdminController.$inject = ['logger'];
     /* @ngInject */
-    function AdminController(logger, $state) {
+    function AdminController(logger, peopleService, itemService, $q) {
         var vm = this;
         vm.title = 'Admin';
 
         activate();
 
         function activate() {
-            logger.info('Activated Admin View');
+            var peoplePromise = peopleService.query(function(people) {
+                vm.people = people;
+            }).$promise;
+            var itemPromise = itemService.query(function(items) {
+                vm.items = items;
+            }).$promise;
+            var promises = [peoplePromise, itemPromise];
+            return $q.all(promises).then(promiseDone);
+
+            function promiseDone(data) {
+                logger.info('Activated Admin View');
+            }
         }
     }
 })();

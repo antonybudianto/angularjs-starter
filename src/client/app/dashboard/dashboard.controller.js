@@ -6,7 +6,7 @@
         .controller('DashboardController', DashboardController);
 
     /* @ngInject */
-    function DashboardController($q, logger, WeatherService) {
+    function DashboardController($q, logger, weatherService) {
         var vm = this;
         vm.news = [
             {
@@ -33,7 +33,7 @@
         }
 
         function getWeather () {
-            return WeatherService.getWeather().then(getWeatherDone);
+            return weatherService.getWeather().then(getWeatherDone);
 
             function getWeatherDone (data) {
                 vm.weatherStat = data.query.results.channel;

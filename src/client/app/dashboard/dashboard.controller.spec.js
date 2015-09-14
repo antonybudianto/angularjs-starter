@@ -21,10 +21,25 @@ describe('DashboardController', function() {
         it('should be created', function() {
             expect(controller).toBeDefined();
         });
+
         describe('after activate', function() {
+            it('should have news defined', function() {
+                expect(controller.news).toBeDefined();
+            });
+
+            describe('after news defined', function() {
+                it('should reduce news count by closing alert', function() {
+                    var before = controller.news.length;
+                    controller.closeAlert(0);
+                    var after = controller.news.length;
+                    expect(after + 1).toEqual(before);
+                });
+            });
+
             it('should have weatherStat defined', function () {
                 expect(controller.weatherStat).toBeDefined();
             });
+
             describe('after weatherStat defined', function () {
                 it('should have at least 5 forecasts', function () {
                     expect(controller.weatherStat.item.forecast.length >= 5).toEqual(true);

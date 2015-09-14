@@ -3,17 +3,20 @@
 
     angular
         .module('app.core')
-        .service('AuthService', AuthService);
+        .factory('authService', authService);
 
-    //AuthService.$inject = [];
+    //authService.$inject = [];
 
     /* @ngInject */
-    function AuthService($http, $window, $state, exception, APP_AUTH_KEY) {
-        var vm = this;
-        vm.isAuth = isAuth;
-        vm.logout = logout;
-        vm.authenticate = authenticate;
+    function authService($http, $window, $state, exception, APP_AUTH_KEY) {
+        var service = {
+            isAuth: isAuth,
+            logout: logout,
+            authenticate: authenticate
+        };
+        return service;
 
+        ///////////////////
         function authenticate(username, password) {
             return $http.post('/api/user/auth', {username: username, password: password})
                 .then(success, fail);

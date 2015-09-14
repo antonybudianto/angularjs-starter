@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($location, logger, AuthService, $state) {
+    function LoginController($location, logger, authService, $state) {
         var vm = this;
         vm.title = 'Login';
         vm.username = '';
@@ -19,7 +19,7 @@
 
         function submitLogin () {
             // call POST to authenticate
-            AuthService.authenticate(vm.username, vm.password).then(authPromise);
+            authService.authenticate(vm.username, vm.password).then(authPromise);
 
             function authPromise (response) {
                 vm.login.status = response.status;

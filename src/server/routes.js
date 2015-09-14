@@ -3,7 +3,9 @@ var errorResponse = require('./utils/error-response')();
 var data = require('./data');
 
 router.get('/people', getPeople);
-router.get('/person/:id', getPerson);
+router.get('/people/:id', getPerson);
+router.get('/item', getItems);
+router.get('/item/:id', getItem);
 router.get('/*', errorResponse.notFoundMiddleware);
 
 router.post('/user/auth', postUserAuth);
@@ -26,6 +28,23 @@ function getPerson(req, res, next) {
         res.status(200).send(person);
     } else {
         errorResponse.send404(req, res, 'person ' + id + ' not found');
+    }
+}
+
+function getItems(req, res, next) {
+    res.status(200).send(data.items);
+}
+
+function getItem(req, res, next) {
+    var id = req.params.id;
+    var item = data.items.filter(function(item) {
+        return item.id === id;
+    })[0];
+
+    if (item) {
+        res.status(200).send(item);
+    } else {
+        errorResponse.send404(req, res, 'item ' + id + ' not found');
     }
 }
 

@@ -3,17 +3,20 @@
 
     angular
         .module('app.widget')
-        .service('WeatherService', WeatherService);
+        .factory('weatherService', weatherService);
 
     /* @ngInject */
-    function WeatherService($http, exception, YWEATHER_URL) {
-        var vm = this;
-        vm.getWeather = getWeather;
+    function weatherService($http, exception, YWEATHER_URL) {
+        var service = {
+            getWeather: getWeather
+        };
 
+        return service;
+
+        ////////////////////
         function getWeather() {
             return $http.get(YWEATHER_URL)
-            .then(success)
-            .catch(fail);
+            .then(success, fail);
 
             function success(response) {
                 return response.data;

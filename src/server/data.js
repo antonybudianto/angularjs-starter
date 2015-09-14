@@ -1,7 +1,15 @@
 module.exports = {
     people: getPeople(),
-    user: getUser()
+    user: getUser(),
+    items: getItems()
 };
+
+function getItems() {
+    return [
+        {id: 1, name: 'Item A'},
+        {id: 2, name: 'Item B'}
+    ];
+}
 
 function getPeople() {
     return [

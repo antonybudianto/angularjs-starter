@@ -9,7 +9,20 @@
                             <h4>Admin menu</h4>
                         </div>
                         <div class="panel-body">
-                            <p>Lorem ipsum.</p>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <h4>People list</h4>
+                                    <div ng-cloak ng-repeat="people in vm.people" class="col-md-2">
+                                        <strong ng-bind="people.firstName"></strong>
+                                    </div>    
+                                </div>
+                                <div class="row" style="margin-top:10px">
+                                    <h4>Item list</h4>
+                                    <div ng-cloak ng-repeat="item in vm.items" class="col-md-2">
+                                        <strong ng-bind="item.name"></strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
