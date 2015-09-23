@@ -12,7 +12,8 @@
     }
 
     var config = {
-        appTitle: 'ToDoList'
+        appTitle: 'ToDoList',
+        appErrorPrefix: '[ToDoList Error] '
     };
 
     core.value('config', config);
@@ -20,10 +21,11 @@
     core.config(configure);
 
     /* @ngInject */
-    function configure($logProvider, routerHelperProvider) {
+    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
+        exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
     }
 
