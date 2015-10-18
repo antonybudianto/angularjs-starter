@@ -4,7 +4,7 @@
 
     angular
         .module('app.core')
-        .constant('APP_NAME', 'ToDoList')
+        .constant('APP_NAME', 'Project')
         .constant('APP_AUTH_KEY', 'user')
         .constant('APP_AUTH_ROUTES', [
             '/',

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.widget')
+        .module('app.core.data')
         .factory('weatherService', weatherService);
 
     /* @ngInject */

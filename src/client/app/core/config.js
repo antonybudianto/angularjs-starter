@@ -12,7 +12,7 @@
     }
 
     var config = {
-        appTitle: 'ToDoList',
+        appTitle: 'Project',
         appErrorPrefix: '[ToDoList Error] '
     };
 

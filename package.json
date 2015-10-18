@@ -2,6 +2,10 @@
   "name": "todolistapp",
   "description": "todolistapp Project Generated from HotTowel Angular",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antonybudianto/angular-johnpapa"
+  },
   "scripts": {
     "init": "npm install",
     "install": "bower install",

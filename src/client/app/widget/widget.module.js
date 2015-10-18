@@ -2,5 +2,7 @@
     'use strict';
 
     angular
-        .module('app.widget', []);
+        .module('app.widget', [
+            'app.core'
+        ]);
 })();

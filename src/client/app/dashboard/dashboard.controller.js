@@ -15,7 +15,6 @@
             }
         ];
         vm.closeAlert = closeAlert;
-        vm.title = 'Dashboard';
 
         activate();
 
