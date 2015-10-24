@@ -18,7 +18,7 @@
 
         ///////////////////
         function authenticate(username, password) {
-            return $http.post('/api/user/auth', {username: username, password: password})
+            return $http.post('/api/auth', {username: username, password: password})
                 .then(success, fail);
 
             function success(response) {

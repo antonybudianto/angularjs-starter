@@ -6,6 +6,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var expressJwt = require('express-jwt');
 var port = process.env.PORT || 8001;
 var errorResponse = require('./utils/error-response')();
 
@@ -16,7 +17,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
+app.use('/api', expressJwt({secret: 'somesecret'})
+    .unless({
+        path: ['/api/auth']
+    }));
 app.use('/api', require('./routes'));
+
+app.use(function (err, req, res, next) {
+    if (err.constructor.name === 'UnauthorizedError') {
+        res.send(401, 'Unauthorized');
+    }
+});
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
