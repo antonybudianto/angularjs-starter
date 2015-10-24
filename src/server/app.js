@@ -9,7 +9,7 @@ var logger = require('morgan');
 var expressJwt = require('express-jwt');
 var port = process.env.PORT || 8001;
 var errorResponse = require('./utils/error-response')();
-
+var data = require('./data');
 var environment = process.env.NODE_ENV;
 
 app.use(favicon(__dirname + '/favicon.ico'));
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-app.use('/api', expressJwt({secret: 'somesecret'})
+app.use('/api', expressJwt({secret: data.secret})
     .unless({
         path: ['/api/auth']
     }));

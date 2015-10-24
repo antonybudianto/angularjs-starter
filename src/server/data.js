@@ -1,8 +1,13 @@
 module.exports = {
     people: getPeople(),
     user: getUser(),
-    items: getItems()
+    items: getItems(),
+    secret: getSecret()
 };
+
+function getSecret() {
+    return 'some-secr3t';
+}
 
 function getItems() {
     return [

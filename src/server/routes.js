@@ -2,7 +2,7 @@ var router = require('express').Router();
 var errorResponse = require('./utils/error-response')();
 var jwt = require('jsonwebtoken');
 var data = require('./data');
-var secret = 'somesecret';
+var secret = data.secret;
 
 router.get('/people', getPeople);
 router.get('/people/:id', getPerson);
@@ -67,7 +67,7 @@ function postUserAuth(req, res, next) {
                 firstName: user.firstName,
                 lastName: user.lastName
             };
-            var token = jwt.sign(profile, secret, { expiresInMinutes: 60*5 });
+            var token = jwt.sign(profile, secret, {expiresInMinutes: 60 * 5});
             res.json({token: token});
         } else {
             res.send(400, 'Wrong user or password');
