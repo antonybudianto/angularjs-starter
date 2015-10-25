@@ -6,6 +6,6 @@
             'app.core.data',
             'ngAnimate', 'ngSanitize',
             'blocks.exception', 'blocks.logger', 'blocks.router',
-            'ui.router', 'ngplus', 'ui.bootstrap'
+            'ui.router', 'ngplus', 'ui.bootstrap', 'angular-jwt'
         ]);
 })();

@@ -6,31 +6,23 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($location, logger, authService, $state) {
+    function LoginController($state, logger, authService) {
         var vm = this;
-        vm.title = 'Login';
-        vm.username = '';
-        vm.password = '';
-        vm.login = {};
         vm.submitLogin = submitLogin;
         vm.submitReady = submitReady;
 
         activate();
 
         function submitLogin () {
-            // call POST to authenticate
-            authService.authenticate(vm.username, vm.password).then(authPromise);
+            authService.authenticate(vm.username, vm.password).then(resolve, reject);
 
-            function authPromise (response) {
-                vm.login.status = response.status;
-                vm.login.description = response.data.description;
-                if (response.status === 200) {
-                    // Redirects to dashboard
-                    logger.info(vm.login.description);
-                    $state.go('dashboard');
-                } else {
-                    logger.error(vm.login.description);
-                }
+            function resolve (response) {
+                logger.info('Login success', null, 'Success');
+                $state.go('dashboard');
+            }
+
+            function reject (e) {
+                logger.error(e.data.description, e, 'Error');
             }
         }
 
@@ -39,7 +31,10 @@
         }
 
         function activate() {
-
+            vm.title = 'Login';
+            vm.username = '';
+            vm.password = '';
+            vm.login = {};
         }
     }
 })();

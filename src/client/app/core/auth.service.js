@@ -5,44 +5,46 @@
         .module('app.core')
         .factory('authService', authService);
 
-    //authService.$inject = [];
-
     /* @ngInject */
-    function authService($http, $window, $state, APP_AUTH_KEY) {
+    function authService($http, $window, $state, $q, jwtHelper) {
         var service = {
             isAuth: isAuth,
+            getToken: getToken,
             logout: logout,
             authenticate: authenticate
         };
+
         return service;
 
-        ///////////////////
         function authenticate(username, password) {
             return $http.post('/api/auth', {username: username, password: password})
-                .then(success, fail);
+                .then(resolve, reject);
 
-            function success(response) {
-                setAuth(response.data.user.id);
-                return response;
+            function resolve(response) {
+                var token = response.data.token;
+                setToken(token);
+                return $q.resolve(token);
             }
 
-            function fail(e) {
-                return e;
+            function reject(e) {
+                return $q.reject(e);
             }
         }
 
         function isAuth () {
-            return $window.localStorage.getItem(APP_AUTH_KEY) !== null;
+            return getToken() && !jwtHelper.isTokenExpired(getToken());
         }
 
-        function setAuth (id) {
-            $window.localStorage.setItem(APP_AUTH_KEY, JSON.stringify({
-                'id': id
-            }));
+        function setToken (token) {
+            $window.sessionStorage.token = token;
+        }
+
+        function getToken () {
+            return $window.sessionStorage.token;
         }
 
         function logout () {
-            $window.localStorage.removeItem(APP_AUTH_KEY);
+            delete $window.sessionStorage.token;
             $state.go('login');
         }
     }

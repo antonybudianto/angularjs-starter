@@ -67,10 +67,10 @@ function postUserAuth(req, res, next) {
                 firstName: user.firstName,
                 lastName: user.lastName
             };
-            var token = jwt.sign(profile, secret, {expiresInMinutes: 60 * 5});
+            var token = jwt.sign(profile, secret, {expiresIn: '1 days'});
             res.json({token: token});
         } else {
-            res.send(400, 'Wrong user or password');
+            errorResponse.send400(req, res, 'Wrong user or password');
         }
     }
 }

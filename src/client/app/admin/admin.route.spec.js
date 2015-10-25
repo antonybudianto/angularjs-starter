@@ -7,11 +7,7 @@ describe('admin routes', function () {
         beforeEach(function() {
             module('app.admin');
             bard.inject('$window', '$location', '$rootScope', '$state', '$templateCache');
-            spyOn($window.localStorage, 'getItem')
-                .and.callFake(function(key) {
-                    return store.key;
-                });
-            store.user = 1;
+            $window.sessionStorage.token = 'sometoken';
         });
 
         beforeEach(function() {

@@ -19,25 +19,11 @@
         activate();
 
         function activate() {
-            var promises = [getWeather()];
-            return $q.all(promises).then(promiseDone);
-
-            function promiseDone (data) {
-                logger.info('Activated Dashboard View');
-            }
+            logger.info('Activated Dashboard View');
         }
 
         function closeAlert (index) {
             vm.news.splice(index, 1);
-        }
-
-        function getWeather () {
-            return weatherService.getWeather().then(getWeatherDone);
-
-            function getWeatherDone (data) {
-                vm.weatherStat = data.query.results.channel;
-                return vm.weatherStat;
-            }
         }
     }
 })();
