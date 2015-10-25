@@ -6,7 +6,6 @@
         .module('blocks.router')
         .provider('routerHelper', routerHelperProvider);
 
-    //routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
     /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
         /* jshint validthis:true */
@@ -22,9 +21,9 @@
         };
 
         this.$get = RouterHelper;
-        //RouterHelper.$inject = ['$location', '$rootScope', '$state', 'logger'];
+
         /* @ngInject */
-        function RouterHelper($window, $location, $rootScope, $state, logger, authService) {
+        function RouterHelper($location, $rootScope, $state, logger, authService) {
             var handlingStateChangeError = false;
             var hasOtherwise = false;
             var stateCounts = {
@@ -42,8 +41,6 @@
             init();
 
             return service;
-
-            ///////////////
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function(state) {
@@ -91,6 +88,12 @@
 
             function handleAuthRoutes () {
                 $rootScope.$on('$stateChangeStart', function(event, to, from) {
+                    if (to.afterAuth && authService.isAuth()) {
+                        event.preventDefault();
+                        $state.go(to.afterAuth);
+                        return;
+                    }
+
                     if (!to.loginRequired || to.loginRequired === false) {
                         return;
                     }

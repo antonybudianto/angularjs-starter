@@ -3,9 +3,10 @@
 
     var app = angular.module('app.core');
 
-    app.factory('authInterceptor', ['$rootScope', '$q', '$window', 'toastr', authInterceptor]);
+    app.factory('authInterceptor', authInterceptor);
 
-    function authInterceptor($rootScope, $q, $window, toastr) {
+    /* @ngInject */
+    function authInterceptor($q, $window, toastr) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};

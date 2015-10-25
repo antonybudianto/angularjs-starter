@@ -6,19 +6,20 @@
         .controller('DashboardController', DashboardController);
 
     /* @ngInject */
-    function DashboardController($q, logger, weatherService) {
+    function DashboardController(logger, authService) {
         var vm = this;
-        vm.news = [
-            {
-                type: 'success',
-                msg: 'Well done! You successfully read this important alert message.'
-            }
-        ];
         vm.closeAlert = closeAlert;
 
         activate();
 
         function activate() {
+            vm.news = [
+                {
+                    type: 'success',
+                    msg: 'Well done! You successfully read this important alert message.'
+                }
+            ];
+            vm.user = authService.getUser();
             logger.info('Activated Dashboard View');
         }
 

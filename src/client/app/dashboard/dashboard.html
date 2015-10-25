@@ -10,21 +10,10 @@
                     </alert>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Today's weather</h4>
+                            <h4>Welcome</h4>
                         </div>
                         <div class="panel-body">
-                            <h4>{{vm.weatherStat.title}}</h4>
-                            <strong>{{vm.weatherStat.wind.chill}} {{vm.weatherStat.units.temperature}}</strong>
-                            <p>
-                                <div class="forecast col-md-2" ng-repeat="fc in vm.weatherStat.item.forecast">
-                                    <strong class="label label-primary">{{fc.day}}</strong> {{fc.date}} 
-                                    <div class="status">{{fc.text}}</div>
-                                    <div class="forecast-low-high">
-                                        <span class="low">{{fc.low}} {{vm.weatherStat.units.temperature}}</span>/
-                                        <span class="high">{{fc.high}} {{vm.weatherStat.units.temperature}}</span>
-                                    </div>
-                                </div>
-                            </p>
+                            Hello, {{::vm.user.firstName}}!
                         </div>
                     </div>
                 </div>

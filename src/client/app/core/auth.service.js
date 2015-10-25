@@ -10,6 +10,7 @@
         var service = {
             isAuth: isAuth,
             getToken: getToken,
+            getUser: getUser,
             logout: logout,
             authenticate: authenticate
         };
@@ -41,6 +42,13 @@
 
         function getToken () {
             return $window.sessionStorage.token;
+        }
+
+        function getUser () {
+            if (isAuth()) {
+                return jwtHelper.decodeToken(getToken());
+            }
+            return null;
         }
 
         function logout () {
