@@ -10,7 +10,7 @@
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
+                if ($window.sessionStorage.token && !config.skipAuthorization) {
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
                 }
                 return config;

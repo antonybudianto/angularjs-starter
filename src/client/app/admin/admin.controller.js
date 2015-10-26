@@ -8,7 +8,6 @@
     /* @ngInject */
     function AdminController(logger, peopleService, itemService, $q) {
         var vm = this;
-        vm.title = 'Admin';
 
         activate();
 
@@ -17,7 +16,7 @@
             return $q.all(promises).then(promiseDone);
 
             function promiseDone() {
-                logger.info('Activated Admin View');
+                logger.info('Activated Admin View', null, 'Info');
             }
         }
 
