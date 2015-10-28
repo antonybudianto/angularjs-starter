@@ -53,7 +53,9 @@
 
         function logout () {
             delete $window.sessionStorage.token;
-            $state.go('login');
+            $state.go('login', {
+                message: 'You have logged out.'
+            });
         }
     }
 })();

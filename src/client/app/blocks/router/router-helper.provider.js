@@ -100,7 +100,7 @@
 
                     if (!authService.isAuth()) {
                         event.preventDefault();
-                        $state.go('login');
+                        $state.go('login', {'afterLogin': to.name});
                         return;
                     }
                 });

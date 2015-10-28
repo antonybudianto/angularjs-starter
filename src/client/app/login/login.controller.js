@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($state, logger, authService) {
+    function LoginController($state, logger, authService, $stateParams) {
         var vm = this;
         vm.submitLogin = submitLogin;
         vm.submitReady = submitReady;
@@ -18,7 +18,7 @@
 
             function resolve (response) {
                 logger.info('Login success', null, 'Success');
-                $state.go('dashboard');
+                $state.go($stateParams.afterLogin || 'dashboard');
             }
 
             function reject (e) {
@@ -31,6 +31,10 @@
         }
 
         function activate() {
+            if($stateParams.message) {
+                logger.info($stateParams.message, null, 'Information');
+            }
+
             vm.title = 'Login';
             vm.username = '';
             vm.password = '';
