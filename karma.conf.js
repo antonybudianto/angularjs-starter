@@ -15,10 +15,6 @@ module.exports = function(config) {
         // list of files to exclude
         exclude: gulpConfig.karma.exclude,
 
-        proxies: {
-            '/': 'http://localhost:8888/'
-        },
-
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: gulpConfig.karma.preprocessors,
