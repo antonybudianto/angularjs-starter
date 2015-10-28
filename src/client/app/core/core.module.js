@@ -3,9 +3,9 @@
 
     angular
         .module('app.core', [
-            'app.core.data',
+            'app.core.data', 'app.core.auth',
             'ngAnimate', 'ngSanitize',
             'blocks.exception', 'blocks.logger', 'blocks.router',
-            'ui.router', 'ngplus', 'ui.bootstrap', 'angular-jwt'
+            'ui.router', 'ngplus', 'ui.bootstrap'
         ]);
 })();

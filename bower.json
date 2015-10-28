@@ -1,9 +1,9 @@
 {
-  "name": "ToDoList",
+  "name": "Project",
   "version": "0.0.1",
-  "description": "ToDoList",
+  "description": "Project",
   "authors": [],
-  "license": "MIT",
+  "license": "None",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -12,9 +12,7 @@
     "tests"
   ],
   "devDependencies": {
-    "angular-mocks": "^1.4.5",
-    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
-    "bardjs": "^0.1.4"
+    "angular-mocks": "^1.4.5"
   },
   "dependencies": {
     "angular": "^1.4.5",

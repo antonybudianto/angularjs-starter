@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('app.core');
+    var app = angular.module('app.core.auth');
 
     app.factory('authInterceptor', authInterceptor);
 
