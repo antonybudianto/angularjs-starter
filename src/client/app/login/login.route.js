@@ -20,7 +20,6 @@
                     controller: 'LoginController',
                     controllerAs: 'vm',
                     title: 'Login',
-                    afterAuth: 'dashboard',
                     params: {
                         message: null,
                         afterLogin: 'dashboard'

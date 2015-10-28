@@ -31,7 +31,7 @@
         }
 
         function activate() {
-            if($stateParams.message) {
+            if ($stateParams.message) {
                 logger.info($stateParams.message, null, 'Information');
             }
 

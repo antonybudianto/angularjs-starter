@@ -90,7 +90,7 @@
                 $rootScope.$on('$stateChangeStart', function(event, to, from) {
                     if (to.afterAuth && authService.isAuth()) {
                         event.preventDefault();
-                        $state.go(to.afterAuth);
+                        $state.go(from.name);
                         return;
                     }
 
