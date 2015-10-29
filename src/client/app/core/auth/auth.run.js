@@ -8,9 +8,9 @@
     /* @ngInject */
     function authRun ($rootScope, $state, authService) {
         $rootScope.$on('$stateChangeStart', function(event, to, from) {
-            if (to.afterAuth && authService.isAuth()) {
+            if (from.afterLogin && authService.isAuth()) {
                 event.preventDefault();
-                $state.go(from.name);
+                $state.go(from.afterLogin);
                 return;
             }
 
