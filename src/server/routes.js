@@ -1,6 +1,8 @@
 var router = require('express').Router();
 var errorResponse = require('./utils/error-response')();
+var jwt = require('jsonwebtoken');
 var data = require('./data');
+var secret = data.secret;
 
 router.get('/people', getPeople);
 router.get('/people/:id', getPerson);
@@ -8,7 +10,7 @@ router.get('/item', getItems);
 router.get('/item/:id', getItem);
 router.get('/*', errorResponse.notFoundMiddleware);
 
-router.post('/user/auth', postUserAuth);
+router.post('/auth', postUserAuth);
 
 module.exports = router;
 
@@ -59,13 +61,16 @@ function postUserAuth(req, res, next) {
         })[0];
 
         if (user) {
-            res.status(200).send({
-                status: 200,
-                user: user,
-                description: 'Login success'
-            });
+            var profile = {
+                id: user.id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName
+            };
+            var token = jwt.sign(profile, secret, {expiresIn: '1 days'});
+            res.json({token: token});
         } else {
-            errorResponse.send400(req, res, 'Wrong credentials.');
+            errorResponse.send400(req, res, 'Wrong user or password');
         }
     }
 }

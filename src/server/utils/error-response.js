@@ -36,7 +36,7 @@ module.exports = function () {
             url: req.url
         };
         res.status(errorCode)
-            .send(data)
+            .json(data)
             .end();
     }
 };

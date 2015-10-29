@@ -6,7 +6,6 @@
         .module('blocks.router')
         .provider('routerHelper', routerHelperProvider);
 
-    //routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
     /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
         /* jshint validthis:true */
@@ -22,9 +21,9 @@
         };
 
         this.$get = RouterHelper;
-        //RouterHelper.$inject = ['$location', '$rootScope', '$state', 'logger'];
+
         /* @ngInject */
-        function RouterHelper($window, $location, $rootScope, $state, logger, APP_AUTH_ROUTES) {
+        function RouterHelper($location, $rootScope, $state, logger) {
             var handlingStateChangeError = false;
             var hasOtherwise = false;
             var stateCounts = {
@@ -42,8 +41,6 @@
             init();
 
             return service;
-
-            ///////////////
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function(state) {
@@ -83,25 +80,10 @@
 
             function init() {
                 handleRoutingErrors();
-                handleAuthRoutes();
                 updateDocTitle();
             }
 
             function getStates() { return $state.get(); }
-
-            function handleAuthRoutes () {
-                $rootScope.$on('$stateChangeStart', function(event, to, from) {
-                    APP_AUTH_ROUTES.forEach(function (route) {
-                        if (route === to.url) {
-                            if ($window.localStorage.getItem('user') === null) {
-                                event.preventDefault();
-                                $state.go('login');
-                                return;
-                            }
-                        }
-                    });
-                });
-            }
 
             function updateDocTitle() {
                 $rootScope.$on('$stateChangeSuccess',

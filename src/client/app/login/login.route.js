@@ -5,7 +5,6 @@
         .module('app.login')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper'];
     /* @ngInject */
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
@@ -21,6 +20,10 @@
                     controller: 'LoginController',
                     controllerAs: 'vm',
                     title: 'Login',
+                    params: {
+                        message: null,
+                        afterLogin: 'dashboard'
+                    },
                     settings: {
                         nav: 2,
                         content: '<i class="fa fa-lock"></i> Login'

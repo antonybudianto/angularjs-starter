@@ -6,24 +6,25 @@
         .factory('weatherService', weatherService);
 
     /* @ngInject */
-    function weatherService($http, YWEATHER_URL) {
+    function weatherService($http, $q, YWEATHER_URL) {
         var service = {
             getWeather: getWeather
         };
 
         return service;
 
-        ////////////////////
         function getWeather() {
-            return $http.get(YWEATHER_URL)
-            .then(success, fail);
+            return $http.get(YWEATHER_URL, {
+                skipAuthorization: true
+            })
+            .then(resolve, reject);
 
-            function success(response) {
-                return response.data;
+            function resolve(response) {
+                return $q.resolve(response.data);
             }
 
-            function fail(e) {
-                return e;
+            function reject(e) {
+                return $q.reject(e);
             }
         }
     }

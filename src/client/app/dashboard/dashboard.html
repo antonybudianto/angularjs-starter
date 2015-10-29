@@ -10,9 +10,10 @@
                     </alert>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Today's weather</h4>
+                            <h4>Welcome</h4>
                         </div>
                         <div class="panel-body">
+                            Hello, {{::vm.user.firstName}}!
                             <h4>{{vm.weatherStat.title}}</h4>
                             <strong>{{vm.weatherStat.wind.chill}} {{vm.weatherStat.units.temperature}}</strong>
                             <p>

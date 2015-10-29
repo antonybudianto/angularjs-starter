@@ -6,24 +6,29 @@
         .controller('DashboardController', DashboardController);
 
     /* @ngInject */
-    function DashboardController($q, logger, weatherService) {
+    function DashboardController(logger, authService, weatherService, $q) {
         var vm = this;
-        vm.news = [
-            {
-                type: 'success',
-                msg: 'Well done! You successfully read this important alert message.'
-            }
-        ];
         vm.closeAlert = closeAlert;
 
         activate();
 
         function activate() {
+            vm.user = authService.getUser();
+            vm.news = [
+                {
+                    type: 'success',
+                    msg: 'Well done! You successfully read this important alert message.'
+                }
+            ];
+            loadData();
+        }
+
+        function loadData () {
             var promises = [getWeather()];
-            return $q.all(promises).then(promiseDone);
+            $q.all(promises).then(promiseDone);
 
             function promiseDone (data) {
-                logger.info('Activated Dashboard View');
+                logger.info('Activated Dashboard View', null, 'Info');
             }
         }
 
@@ -32,11 +37,14 @@
         }
 
         function getWeather () {
-            return weatherService.getWeather().then(getWeatherDone);
+            return weatherService.getWeather().then(resolve, reject);
 
-            function getWeatherDone (data) {
+            function resolve (data) {
                 vm.weatherStat = data.query.results.channel;
-                return vm.weatherStat;
+            }
+
+            function reject (e) {
+                logger.error('Error load weather', e, 'Error');
             }
         }
     }
