@@ -25,7 +25,11 @@ app.use('/api', require('./routes'));
 
 app.use(function (err, req, res, next) {
     if (err.constructor.name === 'UnauthorizedError') {
-        res.send(401, 'Unauthorized');
+        res.send(401, {
+            status: 401,
+            message: 'Unauthorized',
+            description: 'You are not authorized to access this resource.'
+        });
     }
 });
 
