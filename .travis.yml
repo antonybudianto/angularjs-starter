@@ -10,4 +10,5 @@ node_js:
   - "iojs"
 before_script:
   - npm install -g gulp
+  - npm install
 script: gulp test
