@@ -9,6 +9,6 @@ node_js:
   - "0.6"
   - "iojs"
 before_script:
-  - npm install -g gulp
+  - npm install -g gulp bower
   - npm install
 script: gulp test
