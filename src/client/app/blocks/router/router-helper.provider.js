@@ -23,7 +23,7 @@
         this.$get = RouterHelper;
 
         /* @ngInject */
-        function RouterHelper($location, $rootScope, $state, logger, authService) {
+        function RouterHelper($location, $rootScope, $state, logger) {
             var handlingStateChangeError = false;
             var hasOtherwise = false;
             var stateCounts = {
@@ -80,31 +80,10 @@
 
             function init() {
                 handleRoutingErrors();
-                handleAuthRoutes();
                 updateDocTitle();
             }
 
             function getStates() { return $state.get(); }
-
-            function handleAuthRoutes () {
-                $rootScope.$on('$stateChangeStart', function(event, to, from) {
-                    if (to.afterAuth && authService.isAuth()) {
-                        event.preventDefault();
-                        $state.go(from.name);
-                        return;
-                    }
-
-                    if (!to.loginRequired || to.loginRequired === false) {
-                        return;
-                    }
-
-                    if (!authService.isAuth()) {
-                        event.preventDefault();
-                        $state.go('login', {'afterLogin': to.name});
-                        return;
-                    }
-                });
-            }
 
             function updateDocTitle() {
                 $rootScope.$on('$stateChangeSuccess',
