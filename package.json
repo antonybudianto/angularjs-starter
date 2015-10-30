@@ -10,7 +10,8 @@
     "init": "npm install",
     "install": "bower install",
     "start": "node src/server/app.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "coveralls": "node ./node_modules/coveralls/bin/coveralls.js < ./report/coverage/report-lcov/lcov.info"
   },
   "dependencies": {
     "body-parser": "^1.8.2",
@@ -18,7 +19,8 @@
     "express-jwt": "^3.1.0",
     "jsonwebtoken": "^5.4.0",
     "morgan": "^1.1.1",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "coveralls": "~2.11.4"
   },
   "devDependencies": {
     "browser-sync": "^2.7.13",
