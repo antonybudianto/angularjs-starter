@@ -1,6 +1,3 @@
-/**
- * Created by romy.kusuma on 9/14/2015.
- */
 /* jshint -W117 */
 describe('blocks.exception', function() {
     var _exceptionHandlerProvider;
