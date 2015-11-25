@@ -2,6 +2,7 @@
 describe('blocks.exception', function() {
     var _exceptionHandlerProvider;
     var rootScope;
+    var logger;
     var mocks = {
         errorMessage: 'fake error',
         prefix: '[TEST]: '
@@ -42,8 +43,10 @@ describe('blocks.exception', function() {
     });
 
     describe('ExceptionHandlerProvider', function() {
-        beforeEach(inject(function($rootScope) {
+        beforeEach(inject(function($rootScope, $injector) {
             rootScope = $rootScope;
+            logger = $injector.get('logger');
+            spyOn(logger, 'error');
             _exceptionHandlerProvider.configure(mocks.prefix);
         }));
 
@@ -71,6 +74,7 @@ describe('blocks.exception', function() {
             catch (ex) {
                 exception = ex;
                 expect(exception.message).toEqual(mocks.prefix + mocks.errorMessage);
+                expect(logger.error).toHaveBeenCalled();
             }
         });
     });

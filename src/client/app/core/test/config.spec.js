@@ -20,8 +20,11 @@ describe('app.core - config', function() {
         inject();
     });
 
-    it('should have debug enabled false', function() {
+    it('should have debug enabled true', function() {
         expect(logProvider.debugEnabled).toHaveBeenCalledWith(true);
+    });
+
+    it('should call configure by routerHelper and exceptionHandler', function() {
         expect(routerHelperProviderObj.configure).toHaveBeenCalled();
         expect(exceptionHandler.configure).toHaveBeenCalled();
     });
