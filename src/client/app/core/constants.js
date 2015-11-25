@@ -1,15 +1,17 @@
-/* global toastr:false, moment:false */
+/* global _:false */
+/* global moment:false */
+/* global toastr:false */
 (function() {
     'use strict';
 
     angular
         .module('app.core')
-        .constant('APP_NAME', 'Project')
-        .constant('APP_AUTH_KEY', 'user')
-        .constant('APP_AUTH_ROUTES', [
-            '/',
-            '/admin'
-        ])
+        .constant('toastr', toastr)
+        .constant('moment', moment)
+        .constant('_', _)
+        .constant('constant', {
+            APP_NAME: 'Project'
+        })
         .constant('YWEATHER_URL', [
             [
                 'https://query.yahooapis.com/v1/public/',
@@ -18,7 +20,6 @@
                 '20where%20text%3D%22jakarta%22)&format=json&env=store%',
                 '3A%2F%2Fdatatables.org%2Falltableswithkeys'
             ].join('')
-        ])
-        .constant('toastr', toastr)
-        .constant('moment', moment);
+        ]);
+
 })();

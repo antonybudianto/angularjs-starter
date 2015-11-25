@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <h1>Dashboard</h1>
-                    <alert ng-repeat="news in vm.news" type="{{news.type}}" close="vm.closeAlert($index)">
+                    <uib-alert ng-repeat="news in vm.news" type="{{news.type}}" close="vm.closeAlert($index)">
                         <strong>News!</strong>
                         <p>{{news.msg}}</p>
-                    </alert>
+                    </uib-alert>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Welcome</h4>

@@ -1,4 +1,5 @@
 module.exports = function() {
+    var logPrefix = 'MyProject';
     var client = './src/client/';
     var server = './src/server/';
     var clientApp = client + 'app/';
@@ -24,6 +25,7 @@ module.exports = function() {
             './src/**/*.js',
             './*.js'
         ],
+        logPrefix: logPrefix,
         build: './build/',
         client: client,
         css: temp + 'styles.css',
