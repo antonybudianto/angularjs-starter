@@ -12,6 +12,35 @@ describe('blocks.exception', function() {
         $provide.constant('toastr', toastr);
     }));
 
+    describe('ExceptionHandlerProvider with no custom config', function() {
+        beforeEach(inject(function($rootScope) {
+            rootScope = $rootScope;
+            _exceptionHandlerProvider.configure();
+        }));
+
+        it('should be defined', function() {
+            expect(_exceptionHandlerProvider).toBeDefined();
+        });
+
+        it('should have appErrorPrefix undefined', function() {
+            expect(_exceptionHandlerProvider.$get().config.appErrorPrefix).toBeUndefined();
+        });
+
+        it('should throw an error when forced', function() {
+            expect(functionThatWillThrow).toThrow();
+        });
+
+        it('manual error is handled by decorator', function() {
+            var exception;
+            try {
+                rootScope.$apply(functionThatWillThrow);
+            }
+            catch (ex) {
+                exception = ex;
+            }
+        });
+    });
+
     describe('ExceptionHandlerProvider', function() {
         beforeEach(inject(function($rootScope) {
             rootScope = $rootScope;

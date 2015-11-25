@@ -4,42 +4,14 @@ describe('router helper provider', function() {
     var logger;
     var state;
     var rootScope;
+    var location;
     var locationProviderObj;
     var stateProviderObj;
     var urlRouterProviderObj;
     var routerHelperProviderObj;
     var routerHelperObj;
-    var mockStates = [
-        {
-            state: 'dashboard',
-            config: {
-                url: '/',
-                templateUrl: 'app/dashboard/dashboard.html',
-                controller: 'DashboardController',
-                controllerAs: 'vm',
-                title: 'Dashboard',
-                settings: {
-                    nav: 1,
-                    content: '<i class="fa fa-dashboard"></i> Dashboard'
-                },
-                loginRequired: true
-            }
-        },
-        {
-            state: 'other',
-            config: {
-                url: '/',
-                templateUrl: 'app/dashboard/other.html',
-                controller: 'OtherController',
-                controllerAs: 'vm',
-                title: 'Other',
-                settings: {
-                    nav: 2,
-                    content: '<i class="fa fa-dashboard"></i> Dashboard'
-                }
-            }
-        }
-    ];
+    var configDocTitle = 'Main Doc Title';
+    var mockStates = statesMock.getStates();
 
     beforeEach(module('blocks.router', function($provide) {
         toastr = {
@@ -58,7 +30,9 @@ describe('router helper provider', function() {
             stateProviderObj = $stateProvider;
             urlRouterProviderObj = $urlRouterProvider;
             routerHelperProviderObj = routerHelperProvider;
-            routerHelperProviderObj.configure({});
+            routerHelperProviderObj.configure({
+                docTitle: configDocTitle
+            });
         });
     });
 
@@ -67,6 +41,7 @@ describe('router helper provider', function() {
         rootScope = $rootScope;
         logger = $injector.get('logger');
         state = $injector.get('$state');
+        location = $injector.get('$location');
     }));
 
     it('should call configureStates successfully', function() {
@@ -79,7 +54,34 @@ describe('router helper provider', function() {
         expect(urlRouterProviderObj.otherwise).toHaveBeenCalled();
     });
 
+    it('should call $state.get when getStates', function() {
+        spyOn(state, 'get');
+        routerHelperObj.getStates();
+        expect(state.get).toHaveBeenCalled();
+    });
+
+    it('should set title in $rootScope', function() {
+        var title = 'Hello';
+        var expectedTitle = configDocTitle + ' ' + title;
+        rootScope.$emit('$stateChangeSuccess', {
+            title: title
+        });
+        expect(rootScope.title).toBeDefined();
+        expect(rootScope.title).toEqual(expectedTitle);
+    });
+
+    it('should handle when no title in state', function() {
+        var expectedTitle = configDocTitle + ' ';
+        rootScope.$emit('$stateChangeSuccess', {});
+        expect(rootScope.title).toBeDefined();
+        expect(rootScope.title).toEqual(expectedTitle);
+    });
+
     describe('handleStateChangeError', function() {
+        beforeEach(function() {
+            spyOn(location, 'path');
+        });
+
         it('should log error for 1st time', function () {
             spyOn(logger, 'error');
             var error = {
@@ -90,6 +92,7 @@ describe('router helper provider', function() {
             routerHelperObj.handleStateChangeError('event', 'state', 'top',
                 'fromstate', 'fromparam', error);
             expect(logger.error).toHaveBeenCalled();
+            expect(location.path).toHaveBeenCalledWith('/');
         });
 
         it('should log error once when handleError twice', function() {
@@ -104,20 +107,43 @@ describe('router helper provider', function() {
             routerHelperObj.handleStateChangeError('event', 'state', 'top',
                 'fromstate', 'fromparam', error);
             expect(logger.error.calls.count()).toEqual(1);
+            expect(location.path).toHaveBeenCalledWith('/');
         });
 
-        it('should call $state.get when getStates', function() {
-            spyOn(state, 'get');
-            routerHelperObj.getStates();
-            expect(state.get).toHaveBeenCalled();
+        it('should handle when no error data', function() {
+            spyOn(logger, 'error');
+            var error = {
+                statusText: 'Error text',
+                status: 'Error'
+            };
+            routerHelperObj.handleStateChangeError('event', 'state', 'top',
+                'fromstate', 'fromparam', error);
+            expect(logger.error).toHaveBeenCalled();
+            expect(location.path).toHaveBeenCalledWith('/');
         });
 
-        it('should ca', function() {
-            rootScope.$emit('$stateChangeSuccess', {
-                toState: {
-                    title: 'a'
-                }
-            });
+        it('should handle when no statustext', function() {
+            spyOn(logger, 'error');
+            var error = {
+                data: 'Error',
+                status: 'Error'
+            };
+            routerHelperObj.handleStateChangeError('event', 'state', 'top',
+                'fromstate', 'fromparam', error);
+            expect(logger.error).toHaveBeenCalled();
+            expect(location.path).toHaveBeenCalledWith('/');
+        });
+
+        it('should handle when no status', function() {
+            spyOn(logger, 'error');
+            var error = {
+                data: 'Error',
+                statusText: 'Error text'
+            };
+            routerHelperObj.handleStateChangeError('event', 'state', 'top',
+                'fromstate', 'fromparam', error);
+            expect(logger.error).toHaveBeenCalled();
+            expect(location.path).toHaveBeenCalledWith('/');
         });
     });
 });
