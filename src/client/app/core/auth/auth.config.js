@@ -1,30 +1,40 @@
 (function () {
     'use strict';
 
-    var app = angular.module('app.core.auth');
-
-    app.factory('authInterceptor', authInterceptor);
+    angular
+    .module('app.core.auth')
+    .factory('authInterceptor', authInterceptor)
+    .config(interceptorConfig);
 
     /* @ngInject */
     function authInterceptor($q, $window, toastr) {
-        return {
-            request: function (config) {
-                config.headers = config.headers || {};
-                if ($window.sessionStorage.token && !config.skipAuthorization) {
-                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-                }
-                return config;
-            },
-            responseError: function (rejection) {
-                if (rejection.status === 401) {
-                    toastr.error('You are not authenticated.');
-                }
-                return $q.reject(rejection);
-            }
+        var service = {
+            request: request,
+            responseError: responseError
         };
+
+        return service;
+
+        function request(config) {
+            config.headers = config.headers || {};
+            if ($window.sessionStorage.token && !config.skipAuthorization) {
+                config.headers.Authorization = 'Bearer ' +
+                $window.sessionStorage.token;
+            }
+            return config;
+        }
+
+        function responseError(rejection) {
+            if (rejection.status === 401) {
+                toastr.error('You are not authenticated.');
+            }
+            return $q.reject(rejection);
+        }
     }
 
-    app.config(function ($httpProvider) {
+    /* @ngInject */
+    function interceptorConfig ($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
-    });
+    }
+
 })();
