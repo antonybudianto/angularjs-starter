@@ -19,7 +19,8 @@
 
         function authenticate(username, password) {
             return $http.post('/api/auth', {username: username, password: password})
-                .then(resolve, reject);
+                .then(resolve)
+                .catch(reject);
 
             function resolve(response) {
                 var token = response.data.token;
@@ -33,7 +34,8 @@
         }
 
         function isAuth () {
-            return getToken() && !jwtHelper.isTokenExpired(getToken());
+            var token = getToken();
+            return token && !jwtHelper.isTokenExpired(token);
         }
 
         function setToken (token) {
