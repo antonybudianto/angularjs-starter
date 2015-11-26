@@ -5,7 +5,6 @@
         .module('app.admin')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper', '$location'];
     /* @ngInject */
     function appRun(routerHelper, $location) {
         routerHelper.configureStates(getStates($location));
