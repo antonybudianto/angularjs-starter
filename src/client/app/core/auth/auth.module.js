@@ -3,6 +3,8 @@
 
     angular
         .module('app.core.auth', [
-            'angular-jwt', 'ui.router'
+            'blocks.logger',
+            'angular-jwt',
+            'ui.router'
         ]);
 })();

@@ -2,5 +2,8 @@
     'use strict';
 
     angular
-        .module('app.core.data', []);
+        .module('app.core.data', [
+            'app.core',
+            'blocks.exception'
+        ]);
 })();

@@ -3,9 +3,15 @@
 
     angular
         .module('app.core', [
-            'app.core.data', 'app.core.auth',
-            'ngAnimate', 'ngSanitize',
-            'blocks.exception', 'blocks.logger', 'blocks.router',
-            'ui.router', 'ngplus', 'ui.bootstrap'
+            'blocks.exception',
+            'blocks.logger',
+            'blocks.router',
+            'app.core.data',
+            'app.core.auth',
+            'ngAnimate',
+            'ngSanitize',
+            'ui.router',
+            'ngplus',
+            'ui.bootstrap'
         ]);
 })();

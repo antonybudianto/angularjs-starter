@@ -18,8 +18,8 @@ describe('blocks.exception', function() {
     });
 
     it('should log error when call catcher', function() {
-        spyOn(logger, 'error');
+        spyOn(logger, 'log');
         exception.catcher('You got error')('some error');
-        expect(logger.error).toHaveBeenCalled();
+        expect(logger.log).toHaveBeenCalled();
     });
 });
