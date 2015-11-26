@@ -7,12 +7,7 @@ describe('app.core.auth - run', function() {
 
     beforeEach(function () {
         module('app.core.auth', function($provide) {
-            toastr = {
-                error: jasmine.createSpy(),
-                info: jasmine.createSpy(),
-                warning: jasmine.createSpy(),
-                success: jasmine.createSpy()
-            };
+            toastr = toastrMockData.get();
             $provide.value('toastr', toastr);
         });
 

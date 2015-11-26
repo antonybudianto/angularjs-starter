@@ -6,8 +6,9 @@
         .controller('AdminController', AdminController);
 
     /* @ngInject */
-    function AdminController(logger, peopleService, itemService, $q) {
+    function AdminController($q, logger, dataService) {
         var vm = this;
+        var endpoints = dataService.endpoints;
 
         activate();
 
@@ -21,15 +22,17 @@
         }
 
         function getPeople() {
-            return peopleService.query(function(people) {
-                vm.people = people;
-            });
+            return dataService.get(endpoints.PEOPLE)
+                .then(function(result) {
+                    vm.people = result;
+                });
         }
 
         function getItems() {
-            return itemService.query(function(items) {
-                vm.items = items;
-            });
+            return dataService.get(endpoints.ITEM)
+                .then(function(result) {
+                    vm.items = result;
+                });
         }
     }
 })();

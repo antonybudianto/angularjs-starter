@@ -1,12 +1,7 @@
 /* jshint -W117 */
 describe('blocks.exception', function() {
     beforeEach(module('blocks.exception', function($provide) {
-        toastr = {
-            error: jasmine.createSpy(),
-            info: jasmine.createSpy(),
-            warning: jasmine.createSpy(),
-            success: jasmine.createSpy()
-        };
+        toastr = toastrMockData.get();
         $provide.value('toastr', toastr);
     }));
 

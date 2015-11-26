@@ -14,12 +14,7 @@ describe('router helper provider', function() {
     var mockStates = statesMock.getStates();
 
     beforeEach(module('blocks.router', function($provide) {
-        toastr = {
-            error: jasmine.createSpy(),
-            info: jasmine.createSpy(),
-            warning: jasmine.createSpy(),
-            success: jasmine.createSpy()
-        };
+        toastr = toastrMockData.get();
         $provide.value('toastr', toastr);
     }));
 

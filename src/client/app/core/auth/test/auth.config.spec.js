@@ -7,12 +7,7 @@ describe('app.core.auth - config', function() {
 
     describe('with token', function() {
         beforeEach(module('blocks.router', function($provide) {
-            toastr = {
-                error: jasmine.createSpy(),
-                info: jasmine.createSpy(),
-                warning: jasmine.createSpy(),
-                success: jasmine.createSpy()
-            };
+            toastr = toastrMockData.get();
             windowMock = {
                 sessionStorage: {
                     token: 'a'

@@ -2,7 +2,5 @@
     'use strict';
 
     angular
-        .module('app.core.data', [
-            'ngResource'
-        ]);
+        .module('app.core.data', []);
 })();

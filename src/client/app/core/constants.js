@@ -10,7 +10,8 @@
         .constant('moment', moment)
         .constant('_', _)
         .constant('constant', {
-            APP_NAME: 'Project'
+            APP_NAME: 'Project',
+            API_HOST: 'http://localhost:3000'
         })
         .constant('YWEATHER_URL', [
             [
