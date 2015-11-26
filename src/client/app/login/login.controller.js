@@ -22,7 +22,7 @@
             }
 
             function reject (e) {
-                logger.error(e.data.description, e, 'Error');
+                logger.error('Login failed. Please try again', e, 'Error');
             }
         }
 
