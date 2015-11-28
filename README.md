@@ -4,3 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/antonybudianto/angular-johnpapa/badge.svg?branch=master&service=github)](https://coveralls.io/github/antonybudianto/angular-johnpapa?branch=master)
 
 Credits to [John Papa](https://github.com/johnpapa)
+
+Features:
+- Authentication Service (default using JWT)
+- Authentication Middleware (auto redirect based on auth state)
