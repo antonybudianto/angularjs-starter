@@ -6,13 +6,8 @@ describe('app.core.auth - config', function() {
     var windowMock;
 
     describe('with token', function() {
-        beforeEach(module('blocks.router', function($provide) {
-            toastr = {
-                error: jasmine.createSpy(),
-                info: jasmine.createSpy(),
-                warning: jasmine.createSpy(),
-                success: jasmine.createSpy()
-            };
+        beforeEach(module('app.core.auth', function($provide) {
+            toastr = toastrMockData.get();
             windowMock = {
                 sessionStorage: {
                     token: 'a'
@@ -21,8 +16,6 @@ describe('app.core.auth - config', function() {
             $provide.value('toastr', toastr);
             $provide.value('$window', windowMock);
         }));
-
-        beforeEach(module('app.core.auth'));
 
         beforeEach(inject(function(_authInterceptor_, $injector) {
             authInterceptor = _authInterceptor_;

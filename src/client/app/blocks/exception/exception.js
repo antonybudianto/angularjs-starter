@@ -14,7 +14,7 @@
 
         function catcher(message) {
             return function(reason) {
-                logger.error(message, reason);
+                logger.log(message, reason);
             };
         }
     }

@@ -5,13 +5,12 @@
         .module('app.admin')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper', '$location'];
     /* @ngInject */
-    function appRun(routerHelper, $location) {
-        routerHelper.configureStates(getStates($location));
+    function appRun(routerHelper) {
+        routerHelper.configureStates(getStates());
     }
 
-    function getStates($location) {
+    function getStates() {
         return [
             {
                 state: 'admin',
@@ -21,11 +20,11 @@
                     controller: 'AdminController',
                     controllerAs: 'vm',
                     title: 'Admin',
-                    loginRequired: true,
                     settings: {
                         nav: 2,
                         content: '<i class="fa fa-lock"></i> Admin'
-                    }
+                    },
+                    loginRequired: true
                 }
             }
         ];

@@ -3,6 +3,7 @@
 
     angular
         .module('app.core.data', [
-            'ngResource'
+            'app.core',
+            'blocks.exception'
         ]);
 })();

@@ -1,12 +1,7 @@
 /* jshint -W117 */
 describe('blocks.exception', function() {
     beforeEach(module('blocks.exception', function($provide) {
-        toastr = {
-            error: jasmine.createSpy(),
-            info: jasmine.createSpy(),
-            warning: jasmine.createSpy(),
-            success: jasmine.createSpy()
-        };
+        toastr = toastrMockData.get();
         $provide.value('toastr', toastr);
     }));
 
@@ -23,8 +18,8 @@ describe('blocks.exception', function() {
     });
 
     it('should log error when call catcher', function() {
-        spyOn(logger, 'error');
+        spyOn(logger, 'log');
         exception.catcher('You got error')('some error');
-        expect(logger.error).toHaveBeenCalled();
+        expect(logger.log).toHaveBeenCalled();
     });
 });

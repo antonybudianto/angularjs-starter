@@ -1,0 +1,63 @@
+.loading-spinner {
+    font-size: 60pt;
+    animation: rotating 3s linear infinite;
+}
+
+.overlay-background {
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    z-index: 10000;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    margin-top: 100px;
+    opacity: 0.5;
+}
+
+.overlay-content {
+    color: black;
+    position: fixed;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+@keyframes rotating {
+    0% {
+        transform: rotate(0) scale(1);
+        color: orange;
+    }
+    60% {
+        color: green;
+        transform: rotate(180deg) scale(0.8);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        color: orange;
+    }
+}
+
+/* Optional Animations */
+.dissolve-animation.ng-hide-remove,
+.dissolve-animation.ng-hide-add {
+    display: inline !important;
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.dissolve-animation.ng-hide-remove.ng-hide-remove-active,
+.dissolve-animation.ng-hide-add {
+    opacity: 1;
+}
+
+.dissolve-animation.ng-hide-add.ng-hide-add-active,
+.dissolve-animation.ng-hide-remove {
+    opacity: 0;
+}

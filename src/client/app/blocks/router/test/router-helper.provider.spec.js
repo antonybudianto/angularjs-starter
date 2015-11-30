@@ -11,15 +11,10 @@ describe('router helper provider', function() {
     var routerHelperProviderObj;
     var routerHelperObj;
     var configDocTitle = 'Main Doc Title';
-    var mockStates = statesMock.getStates();
+    var mockStates = mockData.getMockStates();
 
     beforeEach(module('blocks.router', function($provide) {
-        toastr = {
-            error: jasmine.createSpy(),
-            info: jasmine.createSpy(),
-            warning: jasmine.createSpy(),
-            success: jasmine.createSpy()
-        };
+        toastr = toastrMockData.get();
         $provide.value('toastr', toastr);
     }));
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app.dashboard', [
-        'app.core',
-        'app.widget'
-      ]);
+        'app.core'
+    ]);
+
 })();

@@ -5,12 +5,7 @@ describe('blocks.logger', function () {
     var toastr;
 
     beforeEach(module('blocks.logger', function($provide) {
-        toastr = {
-            error: jasmine.createSpy(),
-            info: jasmine.createSpy(),
-            warning: jasmine.createSpy(),
-            success: jasmine.createSpy()
-        };
+        toastr = toastrMockData.get();
 
         $log = {
             error: jasmine.createSpy(),

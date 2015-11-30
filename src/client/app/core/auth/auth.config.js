@@ -7,7 +7,7 @@
     .config(interceptorConfig);
 
     /* @ngInject */
-    function authInterceptor($q, $window, toastr) {
+    function authInterceptor($q, $window, logger) {
         var service = {
             request: request,
             responseError: responseError
@@ -26,7 +26,7 @@
 
         function responseError(rejection) {
             if (rejection.status === 401) {
-                toastr.error('You are not authenticated.');
+                logger.error('You are not authenticated.');
             }
             return $q.reject(rejection);
         }
