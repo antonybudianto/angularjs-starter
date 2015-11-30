@@ -12,13 +12,13 @@
     "tests"
   ],
   "devDependencies": {
-    "angular-mocks": "^1.4.7"
+    "angular-mocks": "^1.4.8"
   },
   "dependencies": {
-    "angular": "^1.4.7",
-    "angular-animate": "^1.4.7",
+    "angular": "^1.4.8",
+    "angular-animate": "^1.4.8",
     "angular-bootstrap": "^0.14.3",
-    "angular-sanitize": "^1.4.7",
+    "angular-sanitize": "^1.4.8",
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "font-awesome": "^4.4.0",

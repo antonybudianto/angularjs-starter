@@ -11,7 +11,6 @@
             'ngAnimate',
             'ngSanitize',
             'ui.router',
-            'ngplus',
             'ui.bootstrap'
         ]);
 })();

@@ -1,16 +1,14 @@
 language: javascript
 node_js:
+  - "5.0"
   - "4.1"
   - "4.0"
   - "0.12"
   - "0.11"
   - "0.10"
-  - "0.8"
-  - "0.6"
-  - "iojs"
 before_script:
   - npm install -g gulp bower
   - npm install
-script: gulp test
+script: gulp build
 after_script:
   - npm run-script coveralls
