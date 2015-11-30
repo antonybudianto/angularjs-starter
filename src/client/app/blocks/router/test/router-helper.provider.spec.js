@@ -11,7 +11,7 @@ describe('router helper provider', function() {
     var routerHelperProviderObj;
     var routerHelperObj;
     var configDocTitle = 'Main Doc Title';
-    var mockStates = statesMock.getStates();
+    var mockStates = mockData.getMockStates();
 
     beforeEach(module('blocks.router', function($provide) {
         toastr = toastrMockData.get();
