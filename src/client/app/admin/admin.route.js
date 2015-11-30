@@ -6,11 +6,11 @@
         .run(appRun);
 
     /* @ngInject */
-    function appRun(routerHelper, $location) {
-        routerHelper.configureStates(getStates($location));
+    function appRun(routerHelper) {
+        routerHelper.configureStates(getStates());
     }
 
-    function getStates($location) {
+    function getStates() {
         return [
             {
                 state: 'admin',
