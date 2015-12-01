@@ -26,7 +26,7 @@
     "moment": "^2.10.6",
     "toastr": "^2.1.2",
     "angular-jwt": "~0.0.9",
-    "lodash": "~3.10.1"
+    "lodash": "^3.10.1"
   },
   "overrides": {
     "bootstrap": {
