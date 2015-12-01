@@ -1,7 +1,7 @@
 {
   "name": "angularjs-johnpapa-template",
   "description": "AngularJS Project Template based on Johnpapa Guideline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/antonybudianto/angular-johnpapa"
